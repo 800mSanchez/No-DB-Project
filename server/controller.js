@@ -4,6 +4,7 @@ let id = 11;
 
 module.exports = {
     getMovies: (req,res) => {
+        console.log(movies)
         res.status(200).send(movies);
     },
 
