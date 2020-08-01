@@ -8,6 +8,7 @@ import Posters from "./components/Posters"
 import Info from "./components/Info"
 import Year from "./components/Year"
 import Footer from "./components/Footer"
+import Buttons from './components/Buttons';
 
 
 
@@ -18,6 +19,10 @@ class App extends Component {
       movies: [],
       index: 1
     }
+
+    this.increaseChange = this.increaseChange.bind(this)
+    this.decreaseChange = this.decreaseChange.bind(this)
+
   }
 
   componentDidMount(){
@@ -35,6 +40,14 @@ class App extends Component {
    } 
  ).catch( err => console.log(err))
 };
+
+increaseChange = () => {
+  this.state.index < 9 ? this.setState({index: this.state.index + 1}) : this.setState({index: this.state.index})
+}
+
+decreaseChange = () => {
+  this.state.index > 0 ? this.setState({index: this.state.index - 1}) : this.setState({index: this.state.index})
+}
  
   render(){
   console.log(this.state.movies) 
@@ -54,6 +67,11 @@ class App extends Component {
       {filteredMovies}
       {filteredMovie}
       {filteredYear}
+      <div>
+      <Buttons className="Buttons"
+               nextChange={this.increaseChange}
+               previousChange={this.decreaseChange}/>
+      </div>
       <Footer/>
     </div>
   )};

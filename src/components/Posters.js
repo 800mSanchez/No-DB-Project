@@ -6,7 +6,7 @@ class Posters extends Component {
     console.log(this.props.url)
        return (
            <div className="poster-box">
-               <img src={this.props.url} alt="Movie Posters"/>
+               <img className="movie-poster" src={this.props.url} alt="Movie Posters"/>
            </div>
        )
     }
