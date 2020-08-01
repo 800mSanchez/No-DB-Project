@@ -19,3 +19,28 @@ body {
   margin: 0 auto;
   color: black;
 }
+
+.info-box {
+  display: flex;
+  justify-content: center; 
+}
+
+.poster-box {
+  display: flex;
+  justify-content: center;
+}
+.year-box {
+  display: flex;
+  justify-content: center;
+}
+
+.copyright-header {
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+  margin-bottom: auto;
+  color: white;
+  bottom: 10px;
+}

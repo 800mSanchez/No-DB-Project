@@ -1,10 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 
+class Posters extends Component {
 
-const Posters = () => {
-    return <div className="poster-container">
-
-    </div>
+    render(){ 
+    console.log(this.props.url)
+       return (
+           <div className="poster-box">
+               <img src={this.props.url} alt="Movie Posters"/>
+           </div>
+       )
+    }
 }
 
 export default Posters;
