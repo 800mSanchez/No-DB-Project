@@ -22,7 +22,7 @@ body {
 
 .info-box {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .poster-box {
@@ -50,9 +50,13 @@ body {
   justify-content: space-evenly;
   align-items: center;
   color: goldenrod;
+  font-size: 45px;
+  font-family: 'Pacifico';
 }
 
 .movie-poster {
+  margin-top: 50px;
   width: 400px;
   height: 500px;
+  border: 10px outset goldenrod;
 }
