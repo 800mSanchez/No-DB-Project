@@ -23,5 +23,26 @@ module.exports = {
             id++;
             res.status(200).send(movies);
         }
+    },
+
+    deleteMovie: (req, res) => {
+        const {id} = req.params
+        const index = movies.findIndex( movie => movie.id === +id);
+        if(index === -1){
+            res.status(404).send('Movie not found in list')
+        } else {
+            movies.splice(index, 1);
+            res.status(200).send(movies)
+        }
+    },
+
+    updateMovie: (req, res) => {
+        const index = movies.findIndex( elem => elem.id === +req.params.id);
+        if( movies[index].updated === true ){
+            res.status(404).send('Movie has already been updated')
+        } else {
+            movies[index].updated = true
+            res.status(200).send(movies)
+        }
     }
 }
