@@ -3,7 +3,6 @@ import axios from 'axios'
 import './reset.css';
 import './App.css';
 import Header from './components/Header';
-/* import movies from "../server/movies.json" */
 import Posters from "./components/Posters"
 import Info from "./components/Info"
 import Year from "./components/Year"
@@ -22,6 +21,7 @@ class App extends Component {
 
     this.increaseChange = this.increaseChange.bind(this)
     this.decreaseChange = this.decreaseChange.bind(this)
+    this.deleteMovies = this.deleteMovies.bind(this)
 
   }
 
@@ -40,6 +40,15 @@ class App extends Component {
    } 
  ).catch( err => console.log(err))
 };
+
+  deleteMovies = (id) => {
+    axios.delete(`/api/movies/${id}`)
+    .then(res => {
+      this.setState({
+        movies: res.data
+      })
+    }).catch( err => console.log(err))
+  }
 
 increaseChange = () => {
   this.state.index < 9 ? this.setState({index: this.state.index + 1}) : this.setState({index: this.state.index})
@@ -70,7 +79,10 @@ decreaseChange = () => {
       <div>
       <Buttons className="Buttons"
                nextChange={this.increaseChange}
-               previousChange={this.decreaseChange}/>
+               previousChange={this.decreaseChange}
+               deleteMovies={this.deleteMovies}
+               movies={this.state.movies}
+               />
       </div>
       <Footer/>
     </div>
