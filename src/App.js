@@ -16,12 +16,12 @@ class App extends Component {
     super()
     this.state = {
       movies: [],
-      index: 0
+      index: 0,
     }
 
     this.increaseChange = this.increaseChange.bind(this)
     this.decreaseChange = this.decreaseChange.bind(this)
-    this.deleteMovie = this.deleteMovie.bind(this)
+    this.deleteFilm = this.deleteFilm.bind(this)
 
   }
 
@@ -78,6 +78,17 @@ decreaseChange = () => {
   this.state.index > 0 ? this.setState({index: this.state.index - 1}) : this.setState({index: this.state.index})
 }
  
+deleteFilm(id) {
+  const index = this.state.movies.findIndex(movies => movies.id === id)
+  const newArr = [...this.state.movies]
+  console.log("Attempting to delete ID:0", index)
+  newArr.splice(index,1)
+
+  this.setState({
+      movies: newArr
+  })
+}
+
   render(){
   console.log(this.state.movies) 
   let filteredMovies = this.state.movies.filter((element, index) => element.id === this.state.index).map((el, i) => {
@@ -100,6 +111,7 @@ decreaseChange = () => {
       <Buttons className="Buttons"
                nextChange={this.increaseChange}
                previousChange={this.decreaseChange}
+               deleteFilm = {this.deleteFilm}
                />
       </div>
       <Footer/>

@@ -6,7 +6,7 @@ class Info extends Component {
     console.log(this.props.value)
        return (
            <div className="info-box">
-               <input value={this.props.value} />
+               <h1>{this.props.value}</h1>
            </div>
        )
     }
