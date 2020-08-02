@@ -16,12 +16,12 @@ class App extends Component {
     super()
     this.state = {
       movies: [],
-      index: 1
+      index: 0
     }
 
     this.increaseChange = this.increaseChange.bind(this)
     this.decreaseChange = this.decreaseChange.bind(this)
-    this.deleteMovies = this.deleteMovies.bind(this)
+    this.deleteMovie = this.deleteMovie.bind(this)
 
   }
 
@@ -41,9 +41,29 @@ class App extends Component {
  ).catch( err => console.log(err))
 };
 
-  deleteMovies = (id) => {
+addMovie = (e, title) => {
+  e.preventDefault()
+  axios.post('/api/todos', {title})
+    .then( res => {
+      this.setState({
+        movies: res.data
+      })
+    })
+    .catch( err => console.log(err))
+}
+
+  deleteMovie = (id) => {
     axios.delete(`/api/movies/${id}`)
     .then(res => {
+      this.setState({
+        movies: res.data
+      })
+    }).catch( err => console.log(err))
+  }
+
+  updateMovie = (id) => {
+    axios.put(`/api/todos/updated/${id}`)
+    .then( res => {
       this.setState({
         movies: res.data
       })
@@ -63,7 +83,7 @@ decreaseChange = () => {
   let filteredMovies = this.state.movies.filter((element, index) => element.id === this.state.index).map((el, i) => {
     return <Posters url= {this.state.movies[this.state.index].poster}/>
   } )
-  let filteredMovie = this.state.movies.filter((element, index) => element.id === this.state.index).map((el, i) => {
+  let filteredTitle = this.state.movies.filter((element, index) => element.id === this.state.index).map((el, i) => {
     return <Info value= {this.state.movies[this.state.index].title} />
   } )
   let filteredYear = this.state.movies.filter((element, index) => element.id === this.state.index).map((el, i) => {
@@ -74,14 +94,12 @@ decreaseChange = () => {
     <div>
       <Header/>
       {filteredMovies}
-      {filteredMovie}
+      {filteredTitle}
       {filteredYear}
       <div>
       <Buttons className="Buttons"
                nextChange={this.increaseChange}
                previousChange={this.decreaseChange}
-               deleteMovies={this.deleteMovies}
-               movies={this.state.movies}
                />
       </div>
       <Footer/>
