@@ -9,7 +9,6 @@ module.exports = {
     },
 
     addMovie: (req,res) => {
-        console.log("HIT", req.body)
         const {title, year, poster} = req.body;
         if (!title) {
             res.status(405).send('Expected a title for movie')            
@@ -23,7 +22,6 @@ module.exports = {
             };
             movies.push(newMovie);
             id++;
-            console.log("MOVIES", movies)
             res.status(200).send(movies);
         }
     },
@@ -45,6 +43,16 @@ module.exports = {
             res.status(404).send('Movie has already been updated')
         } else {
             movies[index].updated = true
+            res.status(200).send(movies)
+        }
+    },
+
+    editMovie: (req, res) => {
+        const index = movies.findIndex( elem => elem.id === +req.params.id);
+        if( index === -1 ) {
+            res.status(404).send('Movie has already been edited')
+        } else {
+            movies[index].title = req.body.title
             res.status(200).send(movies)
         }
     }

@@ -26,7 +26,7 @@ class App extends Component {
     this.decreaseChange = this.decreaseChange.bind(this)
     this.deleteMovie = this.deleteMovie.bind(this)
     this.updateMovie = this.updateMovie.bind(this)
-
+    this.editMovie = this.editMovie.bind(this)
   }
 
   componentDidMount(){
@@ -37,7 +37,6 @@ class App extends Component {
   getMovies = () => {
     axios.get('/api/movies')
     .then( res => { 
-      console.log(res)
       this.setState({
       movies: res.data
      })
@@ -72,10 +71,18 @@ addMovie = () => {
     axios.put(`/api/movies/updated/${id}`)
     .then( res => {
       this.setState({movies: res.data});
-     /*  this.state.props.push('api/movies');this.setState({
-        movies: res.data
-      }) */
     }).catch( err => console.log(err))
+  }
+
+  editMovie = (id) => {
+    const {title} = this.state
+    axios.put(`/api/movies/title/${id}`, {title})
+    .then( res => {
+      this.setState({
+        movies: res.data,
+        title: ""
+      })
+    }).catch(err => console.log(err))
   }
 
 increaseChange = () => {
@@ -123,6 +130,7 @@ handleChange = (e) => {
                previousChange={this.decreaseChange}
                deleteMovie = {this.deleteMovie}
                updateMovie = {this.updateMovie}
+               editMovie = {this.editMovie}
                movie = {this.state.movies[this.state.index]}
                />
       </div>
