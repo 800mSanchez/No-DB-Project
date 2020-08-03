@@ -9,7 +9,7 @@ const Buttons = props => {
                     <h5>Edit</h5>
                     <h5 className="delete-btn"
                             
-                            onClick={() => props.deleteFilm(props.movie)}>Delete</h5>
+                            onClick={() => props.deleteMovie(props.movie.id)}>Delete</h5>
                     <h5>New</h5>
                 </div>
                 <h3 onClick={props.nextChange}>{'Next Movie'}</h3>
