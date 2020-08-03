@@ -43,7 +43,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: auto;
   color: white;
   bottom: 10px;
@@ -66,8 +66,37 @@ h5 {
 }
 
 .movie-poster {
-  margin-top: 50px;
+  margin-top: 30px;
   width: 300px;
   height: 400px;
   border: 10px outset goldenrod;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  color: aliceblue;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  border: none;
+  margin: 5px;
+  background: none;
+  border: 2px solid goldenrod;
+  color: white;
+  
+
+}
+
+button { 
+  border: none;
+  margin: 5px;
+  background: none;
+  border: 2px solid goldenrod;
+  color: white;
 }

@@ -17,12 +17,15 @@ class App extends Component {
     this.state = {
       movies: [],
       index: 0,
+      title: "",
+      year: "",
+      poster: ""
     }
 
     this.increaseChange = this.increaseChange.bind(this)
     this.decreaseChange = this.decreaseChange.bind(this)
-    /* this.deleteFilm = this.deleteFilm.bind(this) */
     this.deleteMovie = this.deleteMovie.bind(this)
+    this.updateMovie = this.updateMovie.bind(this)
 
   }
 
@@ -42,12 +45,15 @@ class App extends Component {
  ).catch( err => console.log(err))
 };
 
-addMovie = (e, title) => {
-  e.preventDefault()
-  axios.post('/api/todos', {title})
+addMovie = () => {
+  const {title,year,poster} = this.state
+  axios.post('/api/movies', {title, year, poster})
     .then( res => {
       this.setState({
-        movies: res.data
+        movies: res.data,
+        title: "",
+        year: "",
+        poster: ""
       })
     })
     .catch( err => console.log(err))
@@ -63,32 +69,28 @@ addMovie = (e, title) => {
   }
 
   updateMovie = (id) => {
-    axios.put(`/api/todos/updated/${id}`)
+    axios.put(`/api/movies/updated/${id}`)
     .then( res => {
-      this.setState({
+      this.setState({movies: res.data});
+     /*  this.state.props.push('api/movies');this.setState({
         movies: res.data
-      })
+      }) */
     }).catch( err => console.log(err))
   }
 
 increaseChange = () => {
-  this.state.index < 9 ? this.setState({index: this.state.index + 1}) : this.setState({index: this.state.index})
+  this.state.index === this.state.movies.length -1 ? this.setState({index: this.state.index}) : this.setState({index: this.state.index + 1})
 }
 
 decreaseChange = () => {
   this.state.index > 0 ? this.setState({index: this.state.index - 1}) : this.setState({index: this.state.index})
 }
 
-/* deleteFilm(id) {
-  const index = this.state.movies.findIndex(movies => movies.id === id)
-  const newArr = [...this.state.movies]
-  console.log("Attempting to delete ID:0", index)
-  newArr.splice(index,1)
-
+handleChange = (e) => {
   this.setState({
-      movies: newArr
+    [e.target.name]: e.target.value
   })
-} */
+}
 
   render(){
   console.log(this.state.movies) 
@@ -105,6 +107,13 @@ decreaseChange = () => {
   return (
     <div>
       <Header/>
+      <h1 className="add-box">Add Your Favorite Movie</h1>
+        <section>
+            <input name="title" onChange={e => this.handleChange(e)} value={this.state.title} placeholder="title" />
+            <input name="year" onChange={e => this.handleChange(e)} value={this.state.year} placeholder="year" />
+            <input name="poster" onChange={e => this.handleChange(e)} value={this.state.poster}  placeholder="poster" />
+            <button onClick={this.addMovie}>Submit</button>
+        </section>
       {filteredMovies}
       {filteredTitle}
       {filteredYear}
@@ -113,6 +122,7 @@ decreaseChange = () => {
                nextChange={this.increaseChange}
                previousChange={this.decreaseChange}
                deleteMovie = {this.deleteMovie}
+               updateMovie = {this.updateMovie}
                movie = {this.state.movies[this.state.index]}
                />
       </div>

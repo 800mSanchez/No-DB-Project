@@ -1,14 +1,15 @@
 const movies = require('./movies.json');
-let id = 11;
+let id = 10;
 
 
 module.exports = {
     getMovies: (req,res) => {
-        console.log(movies)
+        /* console.log(movies) */
         res.status(200).send(movies);
     },
 
     addMovie: (req,res) => {
+        console.log("HIT", req.body)
         const {title, year, poster} = req.body;
         if (!title) {
             res.status(405).send('Expected a title for movie')            
@@ -17,10 +18,12 @@ module.exports = {
                 id,
                 title,
                 year,
-                poster
+                poster,
+                updated: false
             };
             movies.push(newMovie);
             id++;
+            console.log("MOVIES", movies)
             res.status(200).send(movies);
         }
     },
